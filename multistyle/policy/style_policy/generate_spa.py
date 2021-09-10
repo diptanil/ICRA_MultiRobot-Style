@@ -35,10 +35,10 @@ class SPA:
         return all_sty
 
     def constructMDP(self):
-        sty = tuple()
-        for i in range(self.problem.styGram.k - 1):
-            sty = sty + tuple([self.problem.special_Blank])
-        self.MDP.initial = SPA_st(self.jpg.start, sty)
+        # sty = tuple()
+        # for i in range(self.problem.styGram.k - 1):
+        #     sty = sty + tuple([self.problem.special_Blank])
+        self.MDP.initial = SPA_st(self.jpg.start, self.problem.special_Blank)
 
         not_visited = [self.MDP.initial]
         visited = []
@@ -62,7 +62,7 @@ class SPA:
                 edge_sty_choices.append(self.style_from_eve_seq(nxt_j_st_p[0].events))
 
             actions_state = list(itertools.product(*edge_sty_choices))
-            # print(actions_state)
+            print(actions_state)
 
             for act in actions_state:
                 for ind, sty in enumerate(act):
