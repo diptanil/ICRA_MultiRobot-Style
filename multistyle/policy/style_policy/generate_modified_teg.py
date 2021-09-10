@@ -29,8 +29,8 @@ class ModifiedTEG:
         # for st in self.states_a + self.states_b:
         #     print(str(st))
         #
-        for edge in self.edges_a + self.edges_b:
-            print(f"{edge[0]} -- {edge[2]} --> {edge[1]}  Prob {edge[3]}")
+        # for edge in self.edges_a + self.edges_b:
+        #     print(f"{edge[0]} -- {edge[2]} --> {edge[1]}  Prob {edge[3]}")
 
 
 

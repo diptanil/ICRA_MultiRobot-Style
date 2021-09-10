@@ -82,9 +82,11 @@ class StyleMDP:
                 #         # u1[s.str_name] = 0
                 #         # u[s.str_name] = 0
                 #         continue
-                # if self.in_final(s):
-                #     pi[s.str_name] = self.special_STOP
-                #     continue
+                if self.in_final(s):
+                    pi[s.str_name] = self.special_STOP
+                    u1[s.str_name] = 0.0
+                    u[s.str_name] = 0.0
+                    continue
                 max_val = - math.inf
                 for action in list(self.tranProbCost[s.str_name].keys()):
                     val = 0.0
@@ -106,11 +108,14 @@ class StyleMDP:
                         pi[s.str_name] = action
                         max_val = val
 
-                if s.is_equal(self.initial):
-                    delta = abs(max_val - u[self.initial.str_name])
+                # if s.is_equal(self.initial):
+                #     delta = abs(max_val - u[self.initial.str_name])
 
                 u1[s.str_name] = max_val
                 #delta = max(delta, abs(u1[s[3]] - u[s[3]]))
+
+                if delta < abs(u1[s.str_name] - u[s.str_name]):
+                    delta = abs(u1[s.str_name] - u[s.str_name])
 
                 if displaydelta:
                     print(f"Delta={delta}")
@@ -119,9 +124,9 @@ class StyleMDP:
                 end_time = time.time()
                 self.time_to_compute = end_time - start_time
                 self.expected_cost = u1[self.initial.str_name]
-                if isverbose:
-                    print(f"Expected cost to reach a goal state: {self.expected_cost}\n\n"
-                          f"Time to compute optimal policy {self.time_to_compute}")
+                # if isverbose:
+                #     print(f"Expected cost to reach a goal state: {self.expected_cost}\n\n"
+                #           f"Time to compute optimal policy {self.time_to_compute}")
                 self.policy = pi
                 self.U = u1
                 if printpolicy:
@@ -219,11 +224,11 @@ class StyleMDP:
             st_nam = state.str_name
             pol = self.policy[state.str_name]
             act = ''
-            if pol != self.special_STOP:
-                act = self.action_name_dic[pol].self_action
-            print(f"State {st_nam} --> Policy : {pol} "
-                  f"(Action : {act})"
-                  f"--> Expected Cost {self.U[state.str_name]}")
+            if pol != "":
+                act = self.action_name_dic[pol] # .self_action
+            print(f"State {st_nam} --> Policy : {pol} ")
+                  # f"(Action : {act})")
+                  # f"--> Expected Cost {self.U[state.str_name]}")
 
     def printMDP(self):
         for state in self.states:

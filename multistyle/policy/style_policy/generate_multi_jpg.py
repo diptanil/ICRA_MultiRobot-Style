@@ -15,10 +15,10 @@ class JPG:
         # for st in self.mod_teg.states_a:
         #     print(st)
         #
-        for st in self.states:
-            print(st)
-
-        print(self.transitions)
+        # for st in self.states:
+        #     print(st)
+        #
+        # print(self.transitions)
 
     def generate_jpg(self):
         self.transitions = np.array([[0.0 for i in range(len(self.states))] for j in range(len(self.states))])

@@ -12,8 +12,8 @@ class SPA:
         self.MDP = StyleMDP()
 
         self.constructMDP()
-        self.MDP.printMDP()
-        self.MDP.optimalPolicy_InfiniteHorizon(self.problem.special_STOP,  isverbose = True, displaydelta = True, printpolicy = True, epsilonOfConvergence = 0.01, discount = 0.8)
+        # self.MDP.printMDP()
+        self.MDP.optimalPolicy_InfiniteHorizon(self.problem.special_STOP,  isverbose = True, displaydelta = False, printpolicy = True, epsilonOfConvergence = 0.01, discount = 0.8)
 
     def st_in_list(self, st, list):
         for state in list:
@@ -34,6 +34,12 @@ class SPA:
         all_sty = list(itertools.product(*sty))
         return all_sty
 
+    def is_final(self, state):
+        if state.jpg_st.sa_st in self.problem.story.accepting:
+            return True
+        else:
+            return False
+
     def constructMDP(self):
         # sty = tuple()
         # for i in range(self.problem.styGram.k - 1):
@@ -50,7 +56,10 @@ class SPA:
             if not self.st_in_list(state, self.MDP.states):
                 self.MDP.add_StyMDP_state(state)
 
-            print(state.jpg_st.str_name)
+            if self.is_final(state):
+                continue
+
+            # print(state.jpg_st.str_name)
 
             nxt_jpg_sts_prob = self.jpg.get_transition_from_st(state.jpg_st)
 
@@ -62,7 +71,7 @@ class SPA:
                 edge_sty_choices.append(self.style_from_eve_seq(nxt_j_st_p[0].events))
 
             actions_state = list(itertools.product(*edge_sty_choices))
-            print(actions_state)
+            # print(actions_state)
 
             for act in actions_state:
                 for ind, sty in enumerate(act):
@@ -74,6 +83,3 @@ class SPA:
                     if not self.st_in_list(nxt_spa_st, visited):
                         if not self.st_in_list(nxt_spa_st, not_visited):
                             not_visited.append(nxt_spa_st)
-
-
-

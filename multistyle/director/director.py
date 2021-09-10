@@ -28,6 +28,7 @@ class Director:
 
         jpg = JPG(self.problem, teg)
 
-        SPA(self.problem, jpg, self.robots_in_order)
+        spa = SPA(self.problem, jpg, self.robots_in_order)
+        style_policy = spa.MDP.policy
 
 

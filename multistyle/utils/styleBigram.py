@@ -12,7 +12,7 @@ class StyleBiGram:
         reward = 0.0
         old = old_sty
         for sty in sty_seq:
-            print(f"{old}  {sty}")
+            # print(f"{old}  {sty}")
             if sty != self.special_Blank:
                 try:
                     w = self.weights[sty][old]
