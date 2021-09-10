@@ -226,7 +226,10 @@ class StyleMDP:
             act = ''
             if pol != "":
                 act = self.action_name_dic[pol] # .self_action
-            print(f"State {st_nam} --> Policy : {pol} ")
+                print(f"State {st_nam} --> Policy : {pol} ||| Next states {list(self.tranProbCost[st_nam][pol].keys())}")
+            else:
+                print(
+                    f"State {st_nam} --> Policy : {pol}")
                   # f"(Action : {act})")
                   # f"--> Expected Cost {self.U[state.str_name]}")
 
